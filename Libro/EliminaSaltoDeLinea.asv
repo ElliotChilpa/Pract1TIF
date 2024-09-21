@@ -1,0 +1,29 @@
+clc;
+clear all;
+close all;
+
+% Abre el archivo para lectura
+filename = 'Libro_Portugues.txt'; % Cambia esto por el nombre de tu archivo
+
+fileID = fopen(filename, 'r');
+
+% Lee el contenido del archivo como texto
+content = fread(fileID, '*char')';
+
+% Cierra el archivo después de leer
+fclose(fileID);
+
+% Elimina todos los saltos de línea, tanto \n (nuevo línea) como \r (retorno de carro)
+content = strrep(content, sprintf('\n'), '');  % Elimina \n
+content = strrep(content, sprintf('\r'), '');  % Elimina \r
+
+% Abre el archivo nuevamente para escritura
+fileID = fopen(filename, 'w');
+
+% Escribe el contenido modificado de vuelta en el archivo
+fwrite(fileID, content);
+
+% Cierra el archivo
+fclose(fileID);
+
+disp('Todos los saltos de línea han sido eliminados correctamente.');
